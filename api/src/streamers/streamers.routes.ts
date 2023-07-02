@@ -31,10 +31,17 @@ export class StreamersRoutes extends CommonRoutesConfig {
 
     this.app
       .route(`/streamers/:streamerId`)
-      .get(StreamersController.getStreamer);
+      .get(
+        StreamersMiddleware.validateStreamerId,
+        StreamersController.getStreamer
+      );
     this.app
       .route(`/streamers/:streamerId/vote`)
-      .put(StreamersMiddleware.validateVotes, StreamersController.vote);
+      .put(
+        StreamersMiddleware.validateStreamerId,
+        StreamersMiddleware.validateVotes,
+        StreamersController.vote
+      );
 
     return this.app;
   }

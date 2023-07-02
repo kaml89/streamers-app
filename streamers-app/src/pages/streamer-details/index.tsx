@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import useStreamer from '../../queries/useStreamer';
 import useVote from '../../queries/useVote';
 import {
@@ -13,15 +13,20 @@ import { ThumbDown, ThumbUp } from '@mui/icons-material';
 
 const StreamerDetails: React.FC = () => {
   const { streamerId } = useParams();
+  let navigate = useNavigate();
 
   const voteMutation = useVote();
-  const { streamer, isLoading } = useStreamer(Number(streamerId));
+  const { streamer, isLoading, isError } = useStreamer(Number(streamerId));
 
   const handleVote = (streamerId: number, vote: number) => {
     voteMutation.mutate({ streamerId, vote });
   };
 
   if (isLoading) return <div>Loading...</div>;
+
+  if (isError) {
+    navigate('/');
+  }
 
   if (streamer) {
     return (
