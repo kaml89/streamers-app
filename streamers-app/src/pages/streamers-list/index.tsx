@@ -35,7 +35,10 @@ const StreamerListPage: React.FC = () => {
       </Typography>
       <Grid container spacing={4}>
         <Grid item xs={6}>
-          <StreamerForm onSubmit={handleFormSubmit} />
+          <StreamerForm
+            onSubmit={handleFormSubmit}
+            isLoading={createStreamer.isLoading}
+          />
         </Grid>
         <Grid item xs={6}>
           <Typography variant='h6'>List of Streamers:</Typography>

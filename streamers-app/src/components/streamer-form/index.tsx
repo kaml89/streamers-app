@@ -13,9 +13,10 @@ import {
 
 type StreamerFormProps = {
   onSubmit: (data: StreamerInput) => void;
+  isLoading: boolean;
 };
 
-const StreamerForm: React.FC<StreamerFormProps> = ({ onSubmit }) => {
+const StreamerForm: React.FC<StreamerFormProps> = ({ onSubmit, isLoading }) => {
   const {
     register,
     handleSubmit,
@@ -68,8 +69,13 @@ const StreamerForm: React.FC<StreamerFormProps> = ({ onSubmit }) => {
           </FormControl>
         </Grid>
         <Grid item xs={12}>
-          <Button type='submit' variant='contained' color='primary'>
-            Submit
+          <Button
+            type='submit'
+            variant='contained'
+            color='primary'
+            disabled={isLoading}
+          >
+            {isLoading ? 'Loading...' : 'Submit'}
           </Button>
         </Grid>
       </Grid>
